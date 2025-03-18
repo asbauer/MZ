@@ -1,11 +1,11 @@
-Django
+
 django-cors-headers
 python-dotenv
 djangorestframework
 djangorestframework-simplejwt
 
 asgiref
-Django
+jango
 django-cors-headers
 djangorestframework
 djangorestframework-simplejwt
