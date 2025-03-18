@@ -5,7 +5,7 @@ djangorestframework
 djangorestframework-simplejwt
 
 asgiref
-jango
+django
 django-cors-headers
 djangorestframework
 djangorestframework-simplejwt
