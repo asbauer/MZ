@@ -97,6 +97,12 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
+print("DB_HOST:", os.getenv("DB_HOST"))
+print("DB_USER:", os.getenv("DB_USER"))
+print("DB_PORT:", os.getenv("DB_PORT"))
+print("DB_NAME:", os.getenv("DB_NAME"))
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -107,8 +113,6 @@ DATABASES = {
         "PORT": os.getenv("DB_PORT"),
     }
 }
-
-#print("Host is: ", os.getenv('DB_HOST'))
 
 
 # Password validation
