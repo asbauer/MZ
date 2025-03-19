@@ -108,6 +108,8 @@ DATABASES = {
     }
 }
 
+print("Host is: ", os.getenv('DB_HOST'))
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
