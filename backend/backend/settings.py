@@ -108,7 +108,7 @@ DATABASES = {
     }
 }
 
-print("Host is: ", os.getenv('DB_HOST'))
+#print("Host is: ", os.getenv('DB_HOST'))
 
 
 # Password validation
