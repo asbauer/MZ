@@ -28,7 +28,7 @@ function Home () {
   const [submitting,setSubmitting] = useState(false)
   const [replyContent, setReplyContent] = useState('')
   const [windowSize, setWindowSize] = useState(window.innerWidth);
-
+  const [validMap, setValidMap] = useState(false)
 
   useEffect(() => {
 
@@ -226,26 +226,9 @@ const handleReplySubmission = async (e) => {
 
 
 
-return ( 
-    <>
+/*
 
-
-
-
-
-  
-    <nav id='home-nav'>
-    {displayLoginLogout()}
-    <button onClick={createNewPost} id='new-post-btn-header' className='enlarge-on-hover'>New Post</button>
-    <button id='search-btn' onClick={() => navigate('/search')} >Search</button>
-</nav>
-
-<Prompt loggedIn={isAuthenticated} submittedReply={submittedReply} setReplySubmitted={setReplySubmitted} />
-{submittedReply ? <h3 style={{textAlign:'center', color:"black"}}>Response submitted.</h3> : null }
-    
-<div className="post-list"> {/* This can be the wrapper for your posts */}
-  
-        
+      
     {posts.map((post) => (
       <Post 
       post={post} 
@@ -259,6 +242,41 @@ return (
       
     
     ))}
+
+
+
+*/
+
+
+
+return ( 
+    <>
+    <nav id='home-nav'>
+    {displayLoginLogout()}
+    <button onClick={createNewPost} id='new-post-btn-header' className='enlarge-on-hover'>New Post</button>
+    <button id='search-btn' onClick={() => navigate('/search')} >Search</button>
+</nav>
+
+<Prompt loggedIn={isAuthenticated} submittedReply={submittedReply} setReplySubmitted={setReplySubmitted} />
+{submittedReply ? <h3 style={{textAlign:'center', color:"black"}}>Response submitted.</h3> : null }
+    
+<div className="post-list"> {/* This can be the wrapper for your posts */}
+
+{Array.isArray(posts) && posts.length > 0 ? (
+  posts.map((post) => (
+    <Post 
+    post={post} 
+    isLoggedin={isAuthenticated} 
+    key={post.id} 
+    handleDelete={handleDelete}
+    handlePostClick={handlePostClick}
+    isClickable={true}
+    fromHome={true}
+     />
+  ))
+) : (
+  <p>No posts available.</p>
+)}
 
 
   
