@@ -25,8 +25,6 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
     
 
     useEffect( () => {
-      console.log("Gemini 28: " + GEMINI_URL)
-      console.log("Token: " + import.meta.env.VITE_GEMINI_TOKEN_FAKE)
         setLoading(true)
         const today = new Date().toISOString().split('T')[0]
         let storedPrompts ; 
@@ -48,7 +46,6 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
             console.log("Type of storedPrompts: " + Array.isArray(storedPrompts))
         }
        // let storedPrompts = JSON.parse(localStorage.getItem('usedPrompts')) || []
-        setLoading(true)
 
         if (storedPrompts.length > 30) {
             localStorage.removeItem('usedPrompts')
@@ -60,53 +57,21 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
    //             localStorage.setItem('dailyPrompt',JSON.stringify({'prompt':prompt_received , 'promptDate' : today})) 
 
         const fetchPrompt = async () => {
-          console.log("Gemini URL : ", GEMINI_URL)
-          console.log("Token: " , import.meta.env.VITE_GEMINI_TOKEN)
-          setLoading(true)
-            try{
-            const response = await axios.post(
-                `${GEMINI_URL+import.meta.env.VITE_GEMINI_TOKEN}` ,
-                
-                {"contents": [{ //Proper payload
-                        "parts":[{"text": instructions}]
-                                }]
-            } 
-                                
-/*
-            {'contents' : [ {
-                'parts': [{'part1': question, 'part2': "Give a summary"}]
-            }
+          target = '/api/retrieve-prompt/'
 
-            ]}
-                     */   
-                /*
-                Bad payload for testing
-                {contents : question} 
-                */
-        
-        )
-               // console.log("Format: " + JSON.stringify(response.data))
-                //const obj = `{${response?.data?.candidates[0]?.content?.parts[0]?.text}}`
-                //console.log(obj)
-                const text = response?.data?.candidates[0]?.content?.parts[0]?.text
-                const arr = text.split("\n\n\n")
-                let question = arr[0].split('Question:')
-                question = question[1].trim().replace(/[^a-zA-Z'!? ]/g, "");
-                let summary = arr[1].split("Summary:")[1].trim().replace(/[^a-zA-Z'!? ]/g, "");
-                setLoading(false)
-                //console.log(JSON.parse(JSON.stringify(response?.data?.candidates[0]?.content?.parts[0]?.text)))
-                //let prompt_received = response?.data?.candidates[0]?.content?.parts[0]?.text
-               // prompt_received = prompt_received.replace(/['"]+/g, '');
-                return {'prompt': question, 'summary' : summary}
-    }
-        catch (err) { 
-            console.log('Error Status Code: ' + err.status)
-            return 'Error'
-        }
-    }
-      
-       
+          try {
+            const response = await api.get(target) 
+            const data = await response.json()
+            const question = data.question
+            const summary = data.summary
+            return {'prompt': question, 'summary' : summary}
+          }
 
+          catch {
+            console.log("Error retrieving prompt!")
+            return null
+          }
+    }
        
        //console.log(typeof(storedPrompt) + "contents: " + storedPrompts)
 
@@ -141,14 +106,9 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
        localStorage.setItem('usedPrompts',JSON.stringify(storedPrompts))
        localStorage.setItem('dailyPrompt',JSON.stringify({'prompt':retrieved_prompt , 'summary' : summary, 'promptDate' : today})) 
        //console.log("Fetched and set new prompt: " + retrieved_prompt)
-       
         final_prompt = retrieved_prompt
-
-        }
-   
-
-       
-
+        } 
+  
        else {
         console.log("Retrieved daily prompt")
         final_prompt = dailyPrompt.prompt
