@@ -5,7 +5,6 @@ import { GEMINI_URL } from "../constants";
 import api from "../api";
 
 function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
-    const [isLoading,setLoading] = useState(true)
     const instructions = `Generate a question for an elderly woman 
     to write about for her blog for people to get to know her  
     make it cathartic for her to write about and also something that  
@@ -22,10 +21,12 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
       const [submitting,setSubmitting] = useState(false)
       const [replyContent, setReplyContent] = useState('')
       const [summary,setSummary] = useState('')
-
+      const [isLoading,setLoading] = useState(true)
     
 
     useEffect( () => {
+      console.log("Gemini 28: " + GEMINI_URL)
+        setLoading(true)
         const today = new Date().toISOString().split('T')[0]
         let storedPrompts ; 
         
@@ -60,6 +61,7 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
         const fetchPrompt = async () => {
           console.log("Gemini URL : ", GEMINI_URL)
           console.log("Token: " , import.meta.env.VITE_GEMINI_TOKEN)
+          setLoading(true)
             try{
             const response = await axios.post(
                 `${GEMINI_URL+import.meta.env.VITE_GEMINI_TOKEN}` ,
@@ -90,14 +92,7 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
                 let question = arr[0].split('Question:')
                 question = question[1].trim().replace(/[^a-zA-Z'!? ]/g, "");
                 let summary = arr[1].split("Summary:")[1].trim().replace(/[^a-zA-Z'!? ]/g, "");
-                
-
-                
-                
-
-               
-
-
+                setLoading(false)
                 //console.log(JSON.parse(JSON.stringify(response?.data?.candidates[0]?.content?.parts[0]?.text)))
                 //let prompt_received = response?.data?.candidates[0]?.content?.parts[0]?.text
                // prompt_received = prompt_received.replace(/['"]+/g, '');
