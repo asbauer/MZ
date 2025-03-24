@@ -6,7 +6,7 @@ const apiUrl = "/choreo-apis/mama-zeeka/backend/v1"
 const api = axios.create({
     baseURL : import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL   : apiUrl
 })
-
+console.log("URL: " + import.meta.env.VITE_API_URL   + " or  " +  apiUrl )
 
 // This might be unnecessary for the home page api calls bc unprotected
 /*

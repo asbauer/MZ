@@ -29,11 +29,11 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
         const today = new Date().toISOString().split('T')[0]
         let storedPrompts ; 
         
-        
+        /*
         localStorage.removeItem('dailyPrompt')
         localStorage.removeItem('usedPrompts')
         
-        
+        */
         
         if (localStorage.getItem('usedPrompts')) {
             //console.log("Contains stuff" + JSON.parse(localStorage.getItem('usedPrompts')) )
@@ -58,12 +58,15 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
 
         const fetchPrompt = async () => {
           const target = '/api/retrieve-prompt/'
+          
 
           try {
             const response = await api.get(target) 
-            const data = await response.json()
-            const question = data.question
+            console.log("Response: " + response.status)
+            const data =  response.data
+            const question = data.prompt
             const summary = data.summary
+            console.log(data)
             return {'prompt': question, 'summary' : summary}
           }
 

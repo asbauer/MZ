@@ -29,6 +29,7 @@ senitment = 'https://api-inference.huggingface.co/models/cardiffnlp/twitter-robe
 def retrievePrompt(request) :
     gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="
     key = settings.GEMINI_API_KEY
+    print(key)
     print("Key retrieved")
     instructions = '''Generate a question for an elderly woman 
     to write about for her blog for people to get to know her  
@@ -66,12 +67,14 @@ def retrievePrompt(request) :
         # Set loading to False if needed
         # loading = False
 
-        return {'prompt': question, 'summary': summary}
+        return JsonResponse({"prompt": question, "summary": summary})
+
 
     except requests.exceptions.RequestException as e:
         print(f"Error during request: {e}")
         # Handle the error as needed
-        return {'prompt': '', 'summary': ''}
+        return JsonResponse({'prompt': '', 'summary': ''})
+
         
 
 
