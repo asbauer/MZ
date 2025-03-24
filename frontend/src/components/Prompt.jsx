@@ -58,6 +58,8 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
    //             localStorage.setItem('dailyPrompt',JSON.stringify({'prompt':prompt_received , 'promptDate' : today})) 
 
         const fetchPrompt = async () => {
+          console.log("Gemini URL : ", GEMINI_URL)
+          console.log("Token: " , import.meta.env.VITE_GEMINI_TOKEN)
             try{
             const response = await axios.post(
                 `${GEMINI_URL+import.meta.env.VITE_GEMINI_TOKEN}` ,
