@@ -29,10 +29,10 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
         const today = new Date().toISOString().split('T')[0]
         let storedPrompts ; 
         
-        /*
+        
         localStorage.removeItem('dailyPrompt')
         localStorage.removeItem('usedPrompts')
-        */
+        
         
         
         if (localStorage.getItem('usedPrompts')) {
@@ -57,7 +57,7 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
    //             localStorage.setItem('dailyPrompt',JSON.stringify({'prompt':prompt_received , 'promptDate' : today})) 
 
         const fetchPrompt = async () => {
-          target = '/api/retrieve-prompt/'
+          const target = '/api/retrieve-prompt/'
 
           try {
             const response = await api.get(target) 
@@ -84,6 +84,11 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
        if (!dailyPrompt || dailyPrompt?.promptDate != today) {
        
             let results =  await fetchPrompt()
+            if (!results) {
+              setPrompt("Prompt unavailable at this time")
+              setLoading(false)
+              return
+            }
             let retrieved_prompt = results.prompt
             summary = results.summary
 

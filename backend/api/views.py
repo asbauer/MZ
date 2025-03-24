@@ -26,7 +26,7 @@ import re
 
 senitment = 'https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment-latest'
 
-def retrievePrompt() :
+def retrievePrompt(request) :
     gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="
     key = settings.GEMINI_API_KEY
     print("Key retrieved")
