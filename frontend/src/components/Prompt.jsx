@@ -26,7 +26,7 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
 
     useEffect( () => {
       console.log("Gemini 28: " + GEMINI_URL)
-      console.log("Token: " + import.meta.env.VITE_APP_GEMINI_TOKEN_FAKE)
+      console.log("Token: " + env.VITE_APP_GEMINI_TOKEN_FAKE)
         setLoading(true)
         const today = new Date().toISOString().split('T')[0]
         let storedPrompts ; 
