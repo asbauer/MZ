@@ -17,6 +17,65 @@ from rest_framework.views import APIView
 from django.core.paginator import Paginator
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
+from django.http import JsonResponse
+import requests
+from django.http import JsonResponse
+from django.conf import settings
+import re
+
+
+senitment = 'https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment-latest'
+
+def retrievePrompt() :
+    gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="
+    key = settings.GEMINI_API_KEY
+    print("Key retrieved")
+    instructions = '''Generate a question for an elderly woman 
+    to write about for her blog for people to get to know her  
+    make it cathartic for her to write about and also something that  
+    she could write about for her kids and friends to get to know her. 
+    Don't mention tapestry, use appropriate punctuation, including apostrophes 
+     and keep it to no more than 300 chars. Generate a different one than last time too.
+
+     Also generate a short summary of the question that is < 80 characters in length
+    '''
+    payload = {
+        "contents": [
+            {
+                "parts": [
+                    {"text": instructions}
+                ]
+            }
+        ]
+    }
+    
+
+    try :
+        # Send POST request to the Gemini API
+        response = requests.post(gemini_url+key, json=payload)
+        response.raise_for_status()  # Raises an HTTPError for bad responses
+
+        # Extract response data
+        data = response.json()
+        text = data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', "")
+
+        arr = text.split("\n\n\n")
+        question = re.sub(r"[^a-zA-Z'!? ]", "", arr[0].split('Question:')[1].strip())
+        summary = re.sub(r"[^a-zA-Z'!? ]", "", arr[1].split("Summary:")[1].strip())
+
+        # Set loading to False if needed
+        # loading = False
+
+        return {'prompt': question, 'summary': summary}
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error during request: {e}")
+        # Handle the error as needed
+        return {'prompt': '', 'summary': ''}
+        
+
+
+
 
 
 
