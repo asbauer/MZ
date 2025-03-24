@@ -26,6 +26,7 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
 
     useEffect( () => {
       console.log("Gemini 28: " + GEMINI_URL)
+      console.log(import.meta.VITE_GEMINI_TOKEN)
         setLoading(true)
         const today = new Date().toISOString().split('T')[0]
         let storedPrompts ; 
@@ -113,6 +114,7 @@ function Prompt({loggedIn,submittedReply,setReplySubmitted}) {
         let final_prompt ;
         let summary ; 
         const dailyPrompt = JSON.parse(localStorage.getItem('dailyPrompt'))
+        setLoading(true)
 
        if (!dailyPrompt || dailyPrompt?.promptDate != today) {
        
