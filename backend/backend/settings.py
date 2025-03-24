@@ -172,3 +172,4 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",  # In case your frontend uses this address
     'https://c2aa1e35-3aa9-4cbf-9926-8b675ad07036.e1-us-east-azure.choreoapps.dev'
 ]
+
