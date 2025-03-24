@@ -247,21 +247,7 @@ const handleReplySubmission = async (e) => {
 
 */
 
-
-
-return ( 
-    <>
-    <nav id='home-nav'>
-    {displayLoginLogout()}
-    <button onClick={createNewPost} id='new-post-btn-header' className='enlarge-on-hover'>New Post</button>
-    <button id='search-btn' onClick={() => navigate('/search')} >Search</button>
-</nav>
-
-<Prompt loggedIn={isAuthenticated} submittedReply={submittedReply} setReplySubmitted={setReplySubmitted} />
-{submittedReply ? <h3 style={{textAlign:'center', color:"black"}}>Response submitted.</h3> : null }
-    
-<div className="post-list"> {/* This can be the wrapper for your posts */}
-
+/*
 {Array.isArray(posts) && posts.length > 0 ? (
   posts.map((post) => (
     <Post 
@@ -277,6 +263,24 @@ return (
 ) : (
   <p>No posts available.</p>
 )}
+*/
+
+
+
+return ( 
+    <>
+    <nav id='home-nav'>
+    {displayLoginLogout()}
+    <button onClick={createNewPost} id='new-post-btn-header' className='enlarge-on-hover'>New Post</button>
+    <button id='search-btn' onClick={() => navigate('/search')} >Search</button>
+</nav>
+
+<Prompt loggedIn={isAuthenticated} submittedReply={submittedReply} setReplySubmitted={setReplySubmitted} />
+{submittedReply ? <h3 style={{textAlign:'center', color:"black"}}>Response submitted.</h3> : null }
+    
+<div className="post-list"> {/* This can be the wrapper for your posts */}
+
+<h1>Stuff</h1>
 
 
   
