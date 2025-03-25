@@ -30,22 +30,7 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
     const [windowSize, setWindowSize] = useState(window.innerWidth);
     const [classes, setClasses] = useState("") 
     
-    
-
-
     useEffect( () => {
-        //alert("From: " + location )
-        /*
-        if (isAccessTokenValid()) {
-            //setIsLoggedIn(true)
-            setAuthenticationStatus(true)
-        }
-        else if (refreshToken()){
-            //setIsLoggedIn(true)
-            setAuthenticationStatus(true)
-        }
-            */
-
         const handleResize = () => {
             setWindowSize(window.innerWidth);
           };
@@ -64,31 +49,7 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
         
     }, [])
 
-    /*
-    useState( () => {
-        const authorized = localStorage.getItem(ACCESS_TOKEN)
-        if (authorized) {
-            setIsAuthenticated(true)
-        }
-    }, [])
-    */
-
-    //console.log("Is logged in for ", post.title +  " " + isAccessTokenValid())    
-    
-
-    /*
-    const toggleContent = (contentId)  => {
-        const content = document.getElementById(contentId);
-        content.classList.toggle('expanded');
-        
-        const button = content.nextElementSibling;
-        if (content.classList.contains('expanded')) {
-            button.textContent = 'Read Less';
-        } else {
-            button.textContent = 'Read More';
-        }
-    }
-        */
+   
 
     const toggleContent = () => {
         setExpanded(!expanded); // Toggle the expanded state
@@ -110,17 +71,11 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
 
     const handleDeletePost= (e) => {
         e.stopPropagation() ;
-        alert("Post: " + post.id)
         handleDelete(post.id)
 
     }
 
-    //            <button className="delete-btn" onClick={(e) => { e.stopPropagation() ; handleDelete(post.id) }} >Delete Post</button>
-
-    //<p className="post-content">{formatContent(post.content)}</p>
-
-    //            <button className="delete-btn enlarge-on-hover" onClick={handleDeletePost} >Delete Post</button>
-
+   
 
     const updatePost = async (e) => {
         e.preventDefault()
@@ -179,67 +134,6 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
 
     }
 
-    /* Original Styling
-
-     <div className="post-title-container">
-        <h3 className="post-title">{post.title}</h3>
-        <div className="post-alteration-buttons-container">
-
-        {isAuthenticated? 
-        <>
-         {isEditing?
-         <button className="enlarge-on-hover edit-cancel-btn"  onClick={cancelEdit}> Cancel </button>
-         :
-         <button className="enlarge-on-hover edit-cancel-btn" onClick={editPost}> Edit </button>
-
-        } 
-        <button className="enlarge-on-hover" onClick={handleDeletePost} >Delete Post</button>
-
-        </>
-        :
-        null
-
-        }
-       
-         </div>
-        </div>
-        
-        */
-
-        /*
-        <div className="post-alteration-buttons-container">
-        </div>
-
-         <h3 className="post-title">{post.title}</h3>
-        */
-
-
-         /*Newest
-
-
-        <h3 className="post-title">{post.title}</h3>
-
-
-        {isAuthenticated? 
-        
-     
-        <div className="post-alteration-buttons-container" >
-         {isEditing?
-         <button className="enlarge-on-hover edit-cancel-btn"  onClick={cancelEdit}> Cancel </button>
-         :
-         <button className="enlarge-on-hover edit-cancel-btn" onClick={editPost}> Edit </button>
-
-        } 
-        <button className="enlarge-on-hover" onClick={handleDeletePost} >Delete</button>
-</div>
-         
-        :
-        null
-
-        }
-
-        */
-
         function checkTitleLength () {
             if (postTitle.length > 68) {
                 return true
@@ -252,26 +146,6 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
         }
 
 
-        /*
-
-
-        {isAuthenticated? 
-        
-     
-        <div className="post-alteration-buttons-container" >
-         {isEditing?
-         <button className="enlarge-on-hover edit-cancel-btn"  onClick={cancelEdit}> Cancel </button>
-         :
-         <button className="enlarge-on-hover edit-cancel-btn" onClick={editPost}> Edit </button>
-
-        } 
-        <button className="enlarge-on-hover" onClick={handleDeletePost} >Delete</button>
-</div>
-
-        :
-        null
-        }
-        */
 
     function expandOptions (e) {
         e.stopPropagation()
@@ -310,35 +184,6 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
     </> 
     }
 
-    /*
-     <div className="post-alteration-buttons-container">
-    {windowSize <= 1200 ? showMobileLayout() : null}
-
-    {isEditing ? (
-      <button className="enlarge-on-hover edit-cancel-btn" onClick={cancelEdit}>
-        Cancel
-      </button>
-    ) : (
-      <button className="enlarge-on-hover edit-cancel-btn" onClick={editPost}>
-        Edit
-      </button>
-    )}
-
-    <button className="enlarge-on-hover" onClick={handleDeletePost}>
-      Delete
-    </button>
-  </div>
-)}
-
-
-        
-
-
-
-    
-        </div>
-        */
-
     const renderTitle = () => {
         let classesForTitle = 'post-title ' ;
         if (checkTitleLength()) {
@@ -358,18 +203,9 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
                 className={`post-container ${isClickable? 'enlarge-on-hover' : 'none' } `}
                 onClick={isClickable? () => handlePostClick(post) : clickToEdit}
             >
-
-   
-
-
-    <div className="post-title-container">
-
-  
-        
+    <div className="post-title-container">   
             <h3 className={renderTitle()}>{post.title}</h3>
 
-    
-    
     {isAuthenticated && (
   <div className="post-alteration-buttons-container">
     {windowSize <= 767 ? (
@@ -393,19 +229,8 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
   </div>
 )}
 
-
-
         
 </div>
-
-
-    
-        
-
-        
-        
-        
-        
 
             {isEditing
             ? 
@@ -422,17 +247,9 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
                 </div>
            </>
         }
-        
-
-        
         <small>{formattedDate}</small>
-        
-
-       
-        
     </div>
 }
-
 export default Post
 
 
