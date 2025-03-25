@@ -89,7 +89,7 @@ return <form onSubmit={handleSubmit} className="login-container">
         onChange={(e) => setPassword(e.target.value)}
     />
     
-    <button onClick={handleSubmit}>Submit</button>
+    <button style={{borderRadius:'8px'}} onClick={handleSubmit}>Submit</button>
 <div className="forgot-password">
         <a href="/forgot-password" className="forgot-password-link">
             Forgot Password?
