@@ -27,7 +27,7 @@ api.interceptors.request.use(
 
 api.interceptors.request.use(
     (config) => {
-        if (config.method === 'post' || config.method === 'delete' || config.method === 'DELETE' || config.method == 'put' || config.method =='PUT') {
+        if (config.method === 'post'|| config.method === 'POST'  || config.method === 'delete' || config.method === 'DELETE' || config.method == 'put' || config.method =='PUT') {
             const token = localStorage.getItem(ACCESS_TOKEN) ; 
             if (token) {
             config.headers.Authorization = `Bearer ${token}`
