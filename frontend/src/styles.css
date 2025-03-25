@@ -54,6 +54,7 @@ button {
       padding: 0;
       box-sizing: border-box;
       height: 100vh;
+      
     }
   
     
@@ -69,7 +70,7 @@ button {
       display: flex;
       flex-direction: column;
       width: 98%;
-      height:100% ;
+      
     }
     
     /* Header */
