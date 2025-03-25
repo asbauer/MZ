@@ -147,6 +147,7 @@ const handleDelete = async (pk) => {
 
       if (numPostsOnPage == 0 && pageNumber == 1) {
         setLoading(false)
+        setPosts([])
         return 
       }
       
