@@ -118,7 +118,7 @@ function Home () {
   */
 
 const handleDelete = async (pk) => {
-  
+  console.log("PK: " + pk )
 
   if (!isAuthenticated) {
     alert("Not authenticated");
@@ -127,10 +127,10 @@ const handleDelete = async (pk) => {
 
 
   if (window.confirm("Are you sure you want to delete this post?")) {
-    alert("Deleting");
 
     const target = `/api/delete/${pk}/`; // Correct target URL for the DELETE request
     console.log("Targetting: " + target)
+ 
 
     try {
       const res = await api.delete(target); // Send DELETE request
@@ -161,7 +161,8 @@ const handleDelete = async (pk) => {
         }
 
     } catch (err) {
-      alert('Error deleting post:', err.response ? err.response.data : err.message);
+      alert('Error deleting post:' +err.response + err.message);
+      console.log(err.response.data)
     }
   }
 };
@@ -215,7 +216,6 @@ const renderReply = () => {
 }
 const handleReplySubmission = async (e) => {
   e.preventDefault() 
-  console.log("Prompt in homoe: " + prompt)
   try { 
     const res = await api.post('/api/create/', {'title':prompt,'content':replyContent})
     setReplySubmitted(true)
@@ -233,49 +233,6 @@ const handleReplySubmission = async (e) => {
     <button onClick={() => navigate('/search')} >Search</button>
 
     */
-
-
-
-/*
-
-      
-    {posts.map((post) => (
-      <Post 
-      post={post} 
-      isLoggedin={isAuthenticated} 
-      key={post.id} 
-      handleDelete={handleDelete}
-      handlePostClick={handlePostClick}
-      isClickable={true}
-      fromHome={true}
-       />
-      
-    
-    ))}
-
-
-
-*/
-
-/*
-{Array.isArray(posts) && posts.length > 0 ? (
-  posts.map((post) => (
-    <Post 
-    post={post} 
-    isLoggedin={isAuthenticated} 
-    key={post.id} 
-    handleDelete={handleDelete}
-    handlePostClick={handlePostClick}
-    isClickable={true}
-    fromHome={true}
-     />
-  ))
-) : (
-  <p>No posts available.</p>
-)}
-*/
-
-
 
 return ( 
     <>
