@@ -846,6 +846,15 @@ li {
   .pagination-button {
     border-radius: 8px;
   }
+
+  .login-username {
+    width: 50%;
+  }
+  .login-password{
+    width: 50%;
+  }
+
+
   
 }
   
