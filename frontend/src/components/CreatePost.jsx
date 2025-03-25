@@ -13,7 +13,7 @@ function CreatePost() {
     const handleSubmit = async (e) => {
         e.preventDefault() ;
         try {
-            const res = await api.post('api/create/', {title,content}) 
+            const res = await api.post('/api/create/', {title,content}) 
             //alert("Title: " + res.data.title + " Content: " + res.data.content  + " Created at: " + res.data.created_at)
            // alert(JSON.stringify(res))
            //alert(JSON.stringify(res.data))
