@@ -30,21 +30,16 @@ function ViewIndividualPost() {
 
    
     useEffect( () => {
-     // alert("In useEffect")
-       // alert("state: " + location.state.post.id)
+     
         if (!location.state?.post) {
-          //alert("Null state")
-          //alert("In API Request")
           setIsLoading(true)
           console.log("Attempting to retrieve: ")
              api.get(`/api/posts/${postNumber}/`)
             .then( (res) => {
                 console.log("Return status: " + res.status)
-             //   alert(typeof(res.data))
                 console.log("Data: " + res.data.title)
                 setPost(res.data)
                 setIsLoading(false)
-            //    alert("Retrieved api called")
             })
             .catch( (error) => alert("Error!")) 
             
@@ -53,13 +48,11 @@ function ViewIndividualPost() {
            // alert(location.state.post.title)
           // alert("In state")
             setPost(location.state.post)
-           // setIsLoggedIn(location.state.isLoggedIn)
             setIsLoading(false)
             if (location.state?.isEditing)
             {
               setIsEditing(true)
             }
-           // alert("Passed state along" + location.state.post.content)
             
         }
         
@@ -79,10 +72,7 @@ function ViewIndividualPost() {
       
       
         if (window.confirm("Are you sure you want to delete this post?")) {
-          alert("Deleting");
-      
           const target = `/api/delete/${pk}/`; // Correct target URL for the DELETE request
-          console.log("Targetting: " + target)
       
           try {
             const res = await api.delete(target); // Send DELETE request

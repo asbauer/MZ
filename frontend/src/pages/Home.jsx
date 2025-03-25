@@ -67,6 +67,7 @@ function Home () {
         setNextPage(data.next);
         setPrevPage(data.previous);
         console.log("Data: ", data.results);
+        
       })
       .catch((err) => alert(err));
       //window.scrollTo({top:0, behavior:'smooth'}) ;
