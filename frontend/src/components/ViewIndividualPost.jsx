@@ -127,12 +127,13 @@ function ViewIndividualPost() {
         :
         <>
         
-        <div id='enlarged-post' >
+        <div id='enlarged-post' style={{marginTop:'2%'}} >
         <Post 
       post={post} 
       handleDelete={handleDelete}
       editMode={isEditing}
       />
+     
       </div>
       <button style={{width:'95%' ,margin:'auto', borderRadius:'8px'}} id='sentiment-btn'  onClick={() => setShowSentiment(!showSentiment)}>
       Feature Coming Soon...

@@ -267,12 +267,10 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
         } 
         <button className="enlarge-on-hover" onClick={handleDeletePost} >Delete</button>
 </div>
-         
+
         :
         null
-
         }
-
         */
 
     function expandOptions (e) {
