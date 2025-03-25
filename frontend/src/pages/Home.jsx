@@ -143,7 +143,12 @@ const handleDelete = async (pk) => {
       const currentPageUrl = `/api/posts/?page=${pageNumber || 1}`;
       console.log("Deleted on" + currentPageUrl)
 
+      setNumPostsOnPage(numPostsOnPage-1)
 
+      if (numPostsOnPage == 0 && pageNumber == 1) {
+        setLoading(false)
+        return 
+      }
       
         const updatedPosts = posts.filter((post) => post.id !== pk)
         if (updatedPosts.length > 0) {
