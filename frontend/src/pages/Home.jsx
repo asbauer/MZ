@@ -29,6 +29,7 @@ function Home () {
   const [replyContent, setReplyContent] = useState('')
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [validMap, setValidMap] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
 
@@ -37,7 +38,7 @@ function Home () {
     };
 
     window.addEventListener('resize', handleResize);
-
+    isLoading(true)
     
     if (page) {
       getPosts(`/api/posts/?page=${page}`);
@@ -46,12 +47,14 @@ function Home () {
     getPosts('/api/posts/');
     }
 
+
     return () => window.removeEventListener('resize', handleResize);
 
   }, [submittedReply]);
 
  
   const getPosts = (url) => {
+    isLoading(true)
     api.get(url)
       .then((res) => {
         console.log(res.status);
@@ -293,7 +296,8 @@ return (
      />
   ))
 ) : (
-  <p>No posts available.</p>
+  isLoading ? <p> Loading... </p> : 
+  <p>Empty!</p>
 )}
 
 
