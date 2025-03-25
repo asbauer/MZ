@@ -36,7 +36,8 @@ function ViewIndividualPost() {
           //alert("Null state")
           //alert("In API Request")
           setIsLoading(true)
-             api.get(`api/posts/${postNumber}`)
+          console.log("Attempting to retrieve: ")
+             api.get(`/api/posts/${postNumber}/`)
             .then( (res) => {
                 console.log("Return status: " + res.status)
              //   alert(typeof(res.data))

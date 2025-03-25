@@ -110,6 +110,7 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
 
     const handleDeletePost= (e) => {
         e.stopPropagation() ;
+        alert("Post: " + post.id)
         handleDelete(post.id)
 
     }
@@ -149,7 +150,7 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
     const editPost = (e) => {
         e.stopPropagation()
         setIsEditing(true)
-       
+        console.log("Moving")
         if (fromHome) {
         navigate(`/view-post/${post.id}`, {state: {'isEditing':true,'fromHome':true}})
         }
@@ -159,7 +160,7 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
     const cancelEdit = (e) => {
         e.stopPropagation()
         setIsEditing(false)
-       
+      
         setPostClicked(false)
         setPostContent(post.content)
     }
@@ -276,10 +277,11 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
 
     function expandOptions (e) {
         e.stopPropagation()
+        if (isEditing && showOptions) {
+          cancelEdit(e)
+        }
         setShowOptions(!showOptions)
-
-
-
+       
     }
 
     function showRegularLayout () {
@@ -294,36 +296,20 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
 
 
     function showMobileLayout() {
-       
-       
-            return <>
-            <button className='options-btn' onClick={expandOptions} style={{"background-color":'white', 'color':'black'}}>
+    return <>
+            <button className='options-btn' onClick={expandOptions} style={{"backgroundColor":'white', 'color':'black'}}>
                 &#9776;
                 </button>
-
-
-
-
-  <div>
-   
-
-  <nav id={showOptions ? 'menu-actions' : 'menu'} >
-  <ul className='options-list'>
-    <li ><button className='alteration-btns' onClick={expandOptions}>Cancel</button></li>
-   <li className='alteration-btns'><button className='alteration-btns'  onClick={editPost}>Edit</button></li>
-   <li className='alteration-btns'><button className='alteration-btns' onClick={handleDelete}>Delete</button></li>
- 
-   
-</ul>
-
-   </nav>
-   </div>
-  
-    
-
-            </>
-        
-        
+          <div>
+            <nav id={showOptions ? 'menu-actions' : 'menu'} >
+              <ul className='options-list'>
+                <li><button className='alteration-btns' onClick={expandOptions}>Cancel</button></li>
+                <li><button className='alteration-btns'  onClick={editPost}>Edit</button></li>
+                <li><button className='alteration-btns' onClick={handleDeletePost}>Delete</button></li>
+              </ul>
+            </nav>
+          </div>
+    </> 
     }
 
     /*

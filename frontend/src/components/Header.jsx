@@ -65,7 +65,7 @@ return <>
 <Link to='/' className='header-link enlarge-on-hover'>
   <header className="header">  {/* Apply header class */}
   
-  <h1 className="header-title">Mama Zeeka</h1>  {/* Apply header-title class */}
+  <h1 className="header-title">MZ</h1>  {/* Apply header-title class */}
   {isAuthenticated ?
      <p className='header-subtitle'>Hello, Mama Zeeka</p> 
      : <p className='header-subtitle'>Welcome to Mama Zeeka's Blog</p>
