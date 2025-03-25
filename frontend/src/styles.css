@@ -673,6 +673,18 @@ button {
 
   @media  (max-width: 767px) {
 
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+    
+    
+
     #alteration-btns {
         border-radius: 8px ;
     }
