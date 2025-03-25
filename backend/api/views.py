@@ -97,7 +97,7 @@ class CreatePostView(generics.CreateAPIView) :
 
     def perform_create(self, serializer):
         if serializer.is_valid():
-            author = User.objects.get(username='mama')
+            author = self.request.user
             serializer.save(author=author)
         else:
             print(serializer.errors)
