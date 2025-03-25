@@ -13,7 +13,6 @@ function PostSentimentAnalysis({post}) {
    
     useEffect(()  => {
        
-        //alert(hf_token)
         setLoading(true)
         
             try {
@@ -178,11 +177,18 @@ function PostSentimentAnalysis({post}) {
         
     }
 
-
-    return <>
+    /*
+     return <>
     <div className="sentiment-container">
         <h2>The mood of this post is...</h2>
         {isLoading? <p>Analyzing...</p> : sentimentDisplay(sentiment, score)}
+   </div> 
+   </>*/
+
+
+    return <>
+    <div className="sentiment-container">
+        <p>Feature Coming Soon... </p>
    </div> 
    </>
 }

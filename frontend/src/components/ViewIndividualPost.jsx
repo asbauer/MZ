@@ -133,8 +133,8 @@ function ViewIndividualPost() {
       editMode={isEditing}
       />
       </div>
-      <button id='sentiment-btn'  onClick={() => setShowSentiment(!showSentiment)}>
-      View Sentiment Analysis
+      <button style={{width:'95%' ,margin:'auto', borderRadius:'8px'}} id='sentiment-btn'  onClick={() => setShowSentiment(!showSentiment)}>
+      Feature Coming Soon...
       </button>
       {showSentiment? <PostSentimentAnalysis post={post.content} /> : null }
       </>
