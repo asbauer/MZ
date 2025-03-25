@@ -15,6 +15,7 @@ sqlparse
 psycopg2-binary
 python-dotenv
 django-filter
-
+gunicorn
+requests
 
 
