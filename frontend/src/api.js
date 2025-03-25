@@ -6,7 +6,7 @@ const apiUrl = "/choreo-apis/mama-zeeka/backend/v1"
 const api = axios.create({
     baseURL : import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL   : apiUrl
 })
-console.log("URL: " + import.meta.env.VITE_API_URL   + " or  " +  apiUrl )
+console.log("URL: " + import.meta.env.VITE_API_URL   + " or  " +  apiUrl + )
 
 // This might be unnecessary for the home page api calls bc unprotected
 /*
@@ -31,10 +31,12 @@ api.interceptors.request.use(
             const token = localStorage.getItem(ACCESS_TOKEN) ; 
             if (token) {
             config.headers.Authorization = `Bearer ${token}`
+            console.log("Token found")
              }
              return config
         }
         else {
+        console.log("Token not found!")
         return config
         }
     },
