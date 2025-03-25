@@ -38,7 +38,7 @@ function Home () {
     };
 
     window.addEventListener('resize', handleResize);
-    isLoading(true)
+    setLoading(true)
     
     if (page) {
       getPosts(`/api/posts/?page=${page}`);
@@ -54,7 +54,7 @@ function Home () {
 
  
   const getPosts = (url) => {
-    isLoading(true)
+    setLoading(true)
     api.get(url)
       .then((res) => {
         console.log(res.status);
