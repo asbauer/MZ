@@ -32,11 +32,13 @@ api.interceptors.request.use(
             if (token) {
             config.headers.Authorization = `Bearer ${token}`
             console.log("Token found")
-             }
+            }
+            else {
+                console.log("Token not found in else!")
+            }
              return config
         }
         else {
-        console.log("Token not found!")
         return config
         }
     },
