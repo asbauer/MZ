@@ -150,12 +150,14 @@ function SearchPosts () {
       
       }
 
+     
+
 
     return <div id='search-container'> 
     <h2 id='search-header'>Search Posts</h2>
     <form  onSubmit={handleSubmit}>
         <input id='search-input' value={query} onChange={(e) => setQuery(e.target.value)} type='text' placeholder="Enter search terms" />
-        <button> Search </button>
+        <button style={{borderRadius:'8px'}}> Search </button>
     </form>
 
     
@@ -169,6 +171,7 @@ function SearchPosts () {
       key={result.id} 
       
       isClickable={true}
+      handlePostClick={handlePostClick}
       fromHome={true}
        />
        

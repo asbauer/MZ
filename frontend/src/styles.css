@@ -1,5 +1,9 @@
 /* General styles */
 
+button {
+  border-radius: 8px;
+}
+
 #enlarged-post{
     margin-top: 10%;
 
