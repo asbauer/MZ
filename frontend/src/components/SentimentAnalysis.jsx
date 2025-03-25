@@ -188,7 +188,7 @@ function PostSentimentAnalysis({post}) {
 
     return <>
     <div className="sentiment-container">
-        <p>Feature Coming Soon... </p>
+        <p>It's not ready yet! It'll be here soon... </p>
    </div> 
    </>
 }
