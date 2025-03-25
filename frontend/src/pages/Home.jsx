@@ -280,7 +280,21 @@ return (
     
 <div className="post-list"> {/* This can be the wrapper for your posts */}
 
-<h1>Stuff</h1>
+{Array.isArray(posts) && posts.length > 0 ? (
+  posts.map((post) => (
+    <Post 
+    post={post} 
+    isLoggedin={isAuthenticated} 
+    key={post.id} 
+    handleDelete={handleDelete}
+    handlePostClick={handlePostClick}
+    isClickable={true}
+    fromHome={true}
+     />
+  ))
+) : (
+  <p>No posts available.</p>
+)}
 
 
   
