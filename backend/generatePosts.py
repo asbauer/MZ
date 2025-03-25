@@ -13,3 +13,5 @@ def generatePosts(numPosts = 6) :
         author=author
     )
 generatePosts(numPosts=5)
+
+#web: gunicorn backend.wsgi:application
