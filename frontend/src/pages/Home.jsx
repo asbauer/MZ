@@ -164,6 +164,7 @@ const handleDelete = async (pk) => {
 const goToPreviousPage = () => {
   const newPage = pageNumber - 1;
   setPageNumber(newPage);
+  console.log("New Page number: " + newPage)
   getPosts(`/api/posts/?page=${newPage}`);
 }
 
@@ -296,8 +297,8 @@ return (
      />
   ))
 ) : (
-  isLoading ? <p> Loading... </p> : 
-  <p>Empty!</p>
+  isLoading ? <p style={{textAlign:'center'}}> Just a second... </p> : 
+  <p style={{textAlign:'center'}}>Empty!</p>
 )}
 
 
