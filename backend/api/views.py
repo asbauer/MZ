@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 
 
 
@@ -26,9 +26,12 @@ import requests
 from django.http import JsonResponse
 from django.conf import settings
 import re
+from rest_framework.permissions import AllowAny
+
 
 
 @api_view(['POST','post'])
+@permission_classes([AllowAny])
 def sentimentAnalysis(request) :
     url = 'https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment-latest'
     key = settings.HF_API_KEY 
