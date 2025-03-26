@@ -7,8 +7,11 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import PermissionDenied
+<<<<<<< HEAD
 from rest_framework.decorators import api_view
 
+=======
+>>>>>>> d20f9764834905f3ed8a1a7741f9af41eb3a5d33
 
 
 
@@ -18,6 +21,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 from django.core.paginator import Paginator
 from django.http import Http404, HttpResponseBadRequest
+
+from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
 from django.http import JsonResponse
 import requests
@@ -68,20 +73,18 @@ def sentimentAnalysis(request) :
                 return JsonResponse({'sentiment': 'Unable to load sentiment', 'score' : 0})
 
         except :
-            print("In except")
+            return Http404
         
 
     else :
-        print("Here")
+        
         return HttpResponseBadRequest
-   
-
-
 
 
 def retrievePrompt(request) :
     gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="
     key = settings.GEMINI_API_KEY
+
     instructions = '''Generate a question for an elderly woman 
     to write about for her blog for people to get to know her  
     make it cathartic for her to write about and also something that  

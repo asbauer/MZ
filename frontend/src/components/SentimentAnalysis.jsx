@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { SENTIMENT_URL } from "../constants";
+
 import api from "../api";
+
 
 function PostSentimentAnalysis({post}) {
     const [isLoading,setLoading] = useState(true)
-    const [result,setResult] = useState("")  
+    const [result,setResult] = useState("")
+
 
     const [sentiment,setSentiment] = useState('')
     const [score,setScore] = useState(0)
@@ -62,8 +65,6 @@ function PostSentimentAnalysis({post}) {
             tone = 'The tone of this post is serious and thoughtful'
         }
         return <>
-            
-           
             <p>{tone}</p>
             <p>Accuracy Confidence: {confidence}</p>
 </>
@@ -75,7 +76,6 @@ function PostSentimentAnalysis({post}) {
     <div className="sentiment-container">
         <h2>The mood of this post is...</h2>
         {isLoading? <p>Analyzing...</p> : sentimentDisplay(sentiment, score)}
-                <p>It's not ready yet! It'll be here soon... </p>
 
    </div> 
    </>*/
