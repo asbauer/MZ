@@ -7,11 +7,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import PermissionDenied
-<<<<<<< HEAD
 from rest_framework.decorators import api_view
 
-=======
->>>>>>> d20f9764834905f3ed8a1a7741f9af41eb3a5d33
 
 
 
