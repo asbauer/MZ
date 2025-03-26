@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Post
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import PermissionDenied
+from rest_framework.decorators import api_view
+
 
 
 
@@ -15,7 +17,7 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.http import Http404, HttpResponseBadRequest
 from django_filters.rest_framework import DjangoFilterBackend
 from django.http import JsonResponse
 import requests
@@ -24,13 +26,62 @@ from django.conf import settings
 import re
 
 
-senitment = 'https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment-latest'
+@api_view(['POST','post'])
+def sentimentAnalysis(request) :
+    url = 'https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment-latest'
+    key = settings.HF_API_KEY 
+    print(request.method)
+    if request.method == 'POST' or request.method == 'post' : 
+        print("In Post")
+        post_content = request.data.get('post_content')
+        if not post_content : 
+            print("In empty post content")
+            print('Post content: ', post_content)
+            return JsonResponse({'error': 'Empty data sent. Please send content'},status=400)
+        payload = {
+            'inputs': post_content
+        }
+        headers = {
+            'Authorization' : f"Bearer {key}",
+            'Content-Type' : 'application/json',
+            'Accept' : 'application/json'
+        }
+        try :
+            response = requests.post(url=url,json=payload,headers=headers)
+            if response.status_code == 200 :
+                data = response.json()
+                if type(data) == list :
+                    data = data[0]
+                sentiment = ''
+                score = float('-inf')
+                
+                for row in data:
+                    if row['score'] >= score :
+                        score = row['score']
+                        sentiment = row['label']
+                
+
+                return JsonResponse({'sentiment' : sentiment, 'score' : score})
+            else : 
+                print("Here2")
+
+                return JsonResponse({'sentiment': 'Unable to load sentiment', 'score' : 0})
+
+        except :
+            print("In except")
+        
+
+    else :
+        print("Here")
+        return HttpResponseBadRequest
+   
+
+
+
 
 def retrievePrompt(request) :
     gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="
     key = settings.GEMINI_API_KEY
-    print(key)
-    print("Key retrieved")
     instructions = '''Generate a question for an elderly woman 
     to write about for her blog for people to get to know her  
     make it cathartic for her to write about and also something that  

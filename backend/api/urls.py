@@ -19,7 +19,7 @@ from django.urls import path
 from api.views import CreatePostView
 from django.urls import path,include
 from .views import PostListView,PostDetailView, PostDeleteView, PostUpdateView, SearchPostsView
-from .views import retrievePrompt
+from .views import retrievePrompt, sentimentAnalysis
 
 urlpatterns = [
     path("create/",CreatePostView.as_view(), name='create_post'),
@@ -28,5 +28,6 @@ urlpatterns = [
     path('posts/<int:pk>/',PostDetailView.as_view(), name='individual_post' ),
     path('edit/<int:pk>/', PostUpdateView.as_view(), name='edit-post' ),
     path('search/', SearchPostsView.as_view(),name='search'),
-    path('retrieve-prompt/',retrievePrompt, name='retrieve_prompt')
+    path('retrieve-prompt/',retrievePrompt, name='retrieve_prompt'),
+    path('post-sentiment/', sentimentAnalysis, name='sentiment-analysis')
 ]
