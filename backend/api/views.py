@@ -107,7 +107,8 @@ class PasswordResetRequestView(View):
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(str(user.pk).encode())
             domain = get_current_site(request).domain
-            domain = 'localhost:5173'
+            #domain = 'localhost:5173'
+
             print("Domain: ", domain , "UID: ", uid, "Token: ", token)
             # Construct password reset URL
             reset_url = f"http://{domain}/reset-password/{uid}/{token}/"
