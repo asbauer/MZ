@@ -146,7 +146,7 @@ class PasswordResetRequestView(View):
 
 
 
-@api_view(['POST','post'])
+@api_view(['POST'])
 @permission_classes([AllowAny])
 def sentimentAnalysis(request) :
     url = 'https://api-inference.huggingface.co/models/cardiffnlp/twitter-roberta-base-sentiment-latest'
