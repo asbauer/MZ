@@ -5,9 +5,9 @@ import { useState } from "react";
 import '../styles.css';  // Import the correct CSS file
 
 
+
 const ResetPassword = () => {
     const { uidb64, token } = useParams(); // Get the UID and token from the URL
-    const navigate = useNavigate()
     const [message,setMessage] = useState('')
     const  [showReset,setShowReset] = useState(false)
     const [newPassword,setNewPassword] = useState('')
@@ -15,9 +15,17 @@ const ResetPassword = () => {
     const [showPassword,setShowPassword] = useState(false)
     const [showConfirm, setShowConfirm] = useState(false)
     const [passwordError,setPasswordError] = useState('')
-    const [successful,setSuccessful] = useState(false)
+    const [successMessage,setSuccessMessage] = useState('')
+    const navigate = useNavigate()
+    const [success,setSuccess] = useState(false)
 
     useEffect( () => {
+
+        if (success) {
+            setSuccessMessage("Password reset successfully! Redirecting to login...");
+            const timeout = setTimeout(() => navigate('/login'), 3000);
+            return () => clearTimeout(timeout);  // Cleanup on unmount
+        }
 
         const verify = async () => {
             console.log(uidb64 + " and " + token)
@@ -43,7 +51,8 @@ const ResetPassword = () => {
         }
         verify()
 
-    }, [])
+
+    }, [success])
 
     const handleReset = async (e) => {
         e.preventDefault() 
@@ -62,10 +71,15 @@ const ResetPassword = () => {
         try{
         const res = await api.post(target,{'new_password':newPassword})
         console.log(res.data.message)
-        console.log("Changed password: " + res.status)
+        if (res.status === 200) {
+            setSuccessMessage('Successfully changed password! Redirecting... ')
+            setSuccess(true)
+        }
         }
         catch (error) {
             console.log(error.status, error.response.data.message)
+            setSuccessMessage('Unable to change password. Please ask your son for help!')
+            setSuccess(false)
         }
 
 
@@ -106,9 +120,11 @@ const ResetPassword = () => {
     }
     return <>
 
-        {message ? <h3>{message}</h3> : resetForm()}
+        {message ? <h3>{message}</h3> : successMessage ? <h3>{successMessage}</h3> :  resetForm()}
 
         {passwordError? <h3 style={{textAlign:'center'}}>{passwordError}</h3> : " "}
+
+        
     
     </>
 }
