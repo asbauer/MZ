@@ -408,7 +408,7 @@ div .container {
   
   
   input[type=email] {
-    width:38%;
+    width:50%;
     height:25%;
     text-align: center;
     border-radius:7px ;
@@ -446,7 +446,8 @@ div .container {
   }
   
   #edit-form{
-    width: 94%;
+    margin-top: 3%;
+    max-width: 94%;
   }
   form textarea {
     margin-bottom: 1%;
@@ -687,10 +688,117 @@ div .container {
 }
 
 
+#new-password-div {
+  margin: auto;
+}
+
+#confirm-password-div, #new-password-div {
+  margin-top: 2%;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+label{
+  margin-right:1% ;
+}
+
+
+
+
+/* Form container */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+ 
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Password input fields */
+input[type="password"],
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+/* Show/Hide Password Button */
+.password-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.password-container input {
+  flex-grow: 1;
+  padding-right: 40px; /* Make space for the button */
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #007bff;
+  transition: color 0.3s ease-in-out;
+}
+
+.password-toggle:hover {
+  color: #0056b3;
+}
+
+/* Error Styling */
+input.error {
+  border: 2px solid red;
+}
+
+/* Error message */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Submit button */
+button {
+ 
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #044c9a;
+}
+
+
+
 
   /*Mobile Styling*/
 
   @media  (max-width: 767px) {
+
+    input[type=email] {
+      width:60%;
+    }
 
     html, body {
       margin: 0;

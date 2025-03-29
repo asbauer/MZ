@@ -38,7 +38,7 @@ function CreatePost() {
 
 
 
-    return <form onSubmit={handleSubmit}>
+    return <form style={{maxWidth:'100%'}} onSubmit={handleSubmit}>
         
         <div className="title-container">
             <h2 className='new-post-header'>New Post</h2>

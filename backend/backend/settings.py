@@ -17,6 +17,15 @@ import os
 
 load_dotenv()
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_APP_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
 GEMINI_API_KEY = os.getenv("GEMINI_TOKEN")
 HF_API_KEY = os.getenv('HF_TOKEN')
 
@@ -45,8 +54,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1440),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
 }
 
 # Application definition
@@ -172,4 +181,11 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",  # In case your frontend uses this address
     'https://c2aa1e35-3aa9-4cbf-9926-8b675ad07036.e1-us-east-azure.choreoapps.dev'
 ]
+
+#added for email -- need to research this
+#CSRF_TRUSTED_ORIGINS = [
+#    'http://localhost:5173',
+#    'http://127.0.0.1:5173',
+#    'https://c2aa1e35-3aa9-4cbf-9926-8b675ad07036.e1-us-east-azure.choreoapps.dev',  # Your production URL
+#]
 

@@ -8,8 +8,6 @@ import { AuthContext } from "../App";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
-
 function Post({post, handleDelete = null, handlePostClick = null , editMode=false, fromHome=false}) {
 
     
@@ -105,6 +103,7 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
     const editPost = (e) => {
         e.stopPropagation()
         setIsEditing(true)
+        setShowOptions(!showOptions)
         console.log("Moving")
         if (fromHome) {
         navigate(`/view-post/${post.id}`, {state: {'isEditing':true,'fromHome':true}})
@@ -236,7 +235,7 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
             ? 
             <form id='edit-form'>
             <textarea value={postContent} onChange={(e) => setPostContent(e.target.value)} />
-            <button type="submit" onClick={updatePost}>Save</button>
+            <button type="submit" style={{borderRadius:'8px'}} onClick={updatePost}>Save</button>
             </form>
             : //formatContent(post.content)
             <>

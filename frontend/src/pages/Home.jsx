@@ -69,7 +69,8 @@ function Home () {
         console.log("Data: ", data.results);
         
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err))
+      .finally( () => setLoading(false))
       //window.scrollTo({top:0, behavior:'smooth'}) ;
 
       
@@ -262,7 +263,7 @@ return (
   ))
 ) : (
   isLoading ? <p style={{textAlign:'center'}}> Just a second... </p> : 
-  <p style={{textAlign:'center'}}>Empty!</p>
+  <p style={{textAlign:'center'}}>No posts to show... Write something!</p>
 )}
 
 

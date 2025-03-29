@@ -126,7 +126,7 @@ function ViewIndividualPost() {
      
       </div>
       <button style={{width:'95%' ,margin:'auto', borderRadius:'8px'}} id='sentiment-btn'  onClick={() => setShowSentiment(!showSentiment)}>
-      Feature Coming Soon...
+      Sentiment Analysis
       </button>
       {showSentiment? <PostSentimentAnalysis post={post.content} /> : null }
       </>
