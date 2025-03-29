@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ACCESS_TOKEN } from './constants'
+import { ACCESS_TOKEN, REFRESH_TOKEN } from './constants'
 
 const apiUrl = "/choreo-apis/mama-zeeka/backend/v1"
 
@@ -25,23 +25,42 @@ api.interceptors.request.use(
     */
 
 
+function shouldInclude(method,url) {
+    const sensitiveEndpoints = [
+        '/api/create/',
+        '/api/delete/' ,
+        '/api/edit/',
+        '/api/retrieve-token/'
+    ]
+    method = method.toLowerCase()
+    if (method === 'post' || method === 'put' || method == 'delete'){
+        const sensitive = sensitiveEndpoints.some(endpoint => endpoint === url)
+        return sensitive? true : false
+    }
+}
+
+
 api.interceptors.request.use(
     (config) => {
-        if (config.method === 'post'|| config.method === 'POST'  || config.method === 'delete' || config.method === 'DELETE' || config.method == 'put' || config.method =='PUT') {
-            const token = localStorage.getItem(ACCESS_TOKEN) ; 
+        if (shouldInclude(config.method,config.url)) {
+
+            let token = localStorage.getItem(ACCESS_TOKEN) ; 
             if (token) {
             config.headers.Authorization = `Bearer ${token}`
-            console.log("Token found")
+            console.log("Access Token found")
             }
             else {
-                console.log("Token not found in else!")
+                console.log("Access JWT token not found")
             }
-             return config
         }
         else {
-        return config
+            console.log("Not sending JWT")
         }
-    },
+       
+             return config
+        }
+      
+    ,
     (error) => {
         return Promise.reject(error)
     }
