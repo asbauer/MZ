@@ -36,14 +36,15 @@ const Login = () => {
                 localStorage.setItem(REFRESH_TOKEN,res.data.refresh)
                 setAuthenticationStatus(true)
                 
-                if (returnLocation === '/') {
-                    navigate('/')
-                }
-                else if (returnLocation === 'new') (
+               
+                if (returnLocation === 'new') (
                      navigate("/new/")
                 )
-                else { 
+                else if (returnLocation === 'search') { 
                    navigate('/search' ,{state: {'query' : returnLocation}})
+                }
+                else  {
+                    navigate('/')
                 }
                
             }
