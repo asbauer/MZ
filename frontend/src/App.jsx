@@ -20,6 +20,7 @@ import EditPost from './pages/EditPost'
 import ReplyToPrompt from './pages/ReplyToPrompt';
 import SearchPosts from './components/SearchPosts.jsx';
 import { use } from 'react';
+import ResetPassword from './pages/ResetPassword.jsx'
 
 
 export const AuthContext = createContext() ; 
@@ -94,6 +95,9 @@ function App() {
     <AuthContext.Provider value={{isAuthenticated,setAuthenticationStatus}} > 
     <Header />
       <Routes>
+
+      <Route path="/reset-password/:uidb64/:token" element={<ResetPassword />} />
+
 
 <Route path='/login/' element={ <Login /> } />
  <Route path="*" element={ <PageNotFound /> } />

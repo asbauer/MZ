@@ -8,8 +8,6 @@ import { AuthContext } from "../App";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-
-
 function Post({post, handleDelete = null, handlePostClick = null , editMode=false, fromHome=false}) {
 
     

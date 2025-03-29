@@ -8,6 +8,9 @@ from .models import Post
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.decorators import api_view, permission_classes
+from django.views.decorators.csrf import csrf_exempt
+
+
 
 
 
@@ -21,12 +24,121 @@ from django.http import Http404, HttpResponseBadRequest
 
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
-from django.http import JsonResponse
 import requests
 from django.http import JsonResponse
 from django.conf import settings
 import re
 from rest_framework.permissions import AllowAny
+
+
+#email stuff below
+
+# views.py
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.http import JsonResponse
+from django.views import View
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.decorators import method_decorator
+
+@api_view(['POST']) 
+@permission_classes([AllowAny])
+def set_new_password(request) :
+    user = User.objects.all().get(username='mamazeeka')
+    new_password = request.data.get('new_password')
+ 
+    if new_password: 
+        user.set_password(new_password)
+        user.save()
+        print("Successfully set new password")
+        return JsonResponse(data={"message":'Success!'})
+    elif not new_password : 
+        return Response(data={'message': 'Empty password submitted. Please try again!'},
+                        status=status.HTTP_400_BAD_REQUEST)
+    
+  
+    
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])  # Allow any request for password reset link verification
+def verify_reset_authenticity(request,uidb64,token) :
+    print(f"Here! {uidb64} and {token}") 
+    try:
+
+        # Decode the uid
+        print(uidb64)
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+
+        if not uid or not user :
+            return JsonResponse({'error': 'Invalid or expired token'}, status=400)
+
+        print("Here!")
+        # Check if the token is valid for this user
+        if default_token_generator.check_token(user, token):
+            return JsonResponse({'isValid': True})
+        else:
+            return JsonResponse({'isValid': False, 'error': 'Invalid or expired token'}, status=400)
+    
+    except (TypeError, ValueError, User.DoesNotExist):
+        # Handle errors (invalid UID or user not found)
+        print("Erorr")
+        return JsonResponse({'error': 'Invalid or expired token'}, status=400)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class PasswordResetRequestView(View):
+    authentication_classes = [AllowAny]
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        email = self.request.POST.get('email')
+        print('Email: ', email)
+        user = User.objects.filter(email=email).first()
+        print("User: ", user)
+
+        if user:
+            # Generate token for password reset
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(str(user.pk).encode())
+            domain = get_current_site(request).domain
+            domain = 'localhost:5173'
+            print("Domain: ", domain , "UID: ", uid, "Token: ", token)
+            # Construct password reset URL
+            reset_url = f"http://{domain}/reset-password/{uid}/{token}/"
+            
+
+            # Email content
+            subject = "Password Reset Request"
+
+           # message = render_to_string("password_reset_email.html", {
+            #    'user': user,
+             #   'reset_url': reset_url
+            #})
+
+            message = f'''
+            Hi Mama Zeeka!
+
+            It looks like you've requested to reset your password. 
+            Please follow the link below to do so:
+
+            {reset_url}
+
+            Have a great day!
+
+
+'''
+
+            # Send the email
+            send_mail(subject, message, settings.EMAIL_HOST_USER, [email])
+
+        return JsonResponse({'detail': 'Password reset email sent if the email exists in the database.'})
+
 
 
 
@@ -80,7 +192,8 @@ def sentimentAnalysis(request) :
         
         return HttpResponseBadRequest
 
-
+@api_view(['GET','get'])
+@permission_classes([AllowAny])
 def retrievePrompt(request) :
     gemini_url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key="
     key = settings.GEMINI_API_KEY
