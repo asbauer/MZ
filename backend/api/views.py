@@ -11,6 +11,9 @@ from rest_framework.decorators import api_view, permission_classes
 from django.views.decorators.csrf import csrf_exempt
 
 
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+
 
 
 
@@ -255,6 +258,8 @@ class CreatePostView(generics.CreateAPIView) :
     #List of all objects looking at when creating a new one
     #so that we don't accidentally create one that already exists
     querySet = Post.objects.all()
+    authentication_classes = [JWTAuthentication]
+
     serializer_class = PostSerializer #Tells view which kind of data we need to accept to make a new post
     permission_classes = [IsAuthenticated] #Who can call this view
 
@@ -289,6 +294,7 @@ class PostDetailView(generics.RetrieveAPIView) :
 class PostUpdateView(RetrieveUpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def perform_update(self, serializer):
@@ -302,7 +308,6 @@ class PostUpdateView(RetrieveUpdateAPIView):
 
 class PostListView(generics.ListCreateAPIView):
     serializer_class = PostSerializer
-    #permission_classes = [IsAuthenticated]
     permission_classes = [AllowAny]
     pagination_class = PostPagination
 
@@ -337,7 +342,9 @@ class SearchPostsView(generics.ListAPIView) :
 class PostDeleteView(generics.DestroyAPIView) :
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [AllowAny]
+    authentication_classes = [JWTAuthentication]
+
+    permission_classes = [IsAuthenticated]
 
 '''
 class PostDeleteView(APIView):
