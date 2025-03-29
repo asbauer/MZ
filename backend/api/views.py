@@ -110,6 +110,7 @@ class PasswordResetRequestView(View):
             token = default_token_generator.make_token(user)
             uid = urlsafe_base64_encode(str(user.pk).encode())
             domain = get_current_site(request).domain
+            domain = 'https://c2aa1e35-3aa9-4cbf-9926-8b675ad07036.e1-us-east-azure.choreoapps.dev'
             #domain = 'localhost:5173'
 
             print("Domain: ", domain , "UID: ", uid, "Token: ", token)
