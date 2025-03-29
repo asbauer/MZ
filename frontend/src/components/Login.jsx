@@ -59,7 +59,7 @@ const Login = () => {
             //alert("In error!")
             //alert("Error: " + error)
             console.error("Error response data: ", error.response?.data);
-            alert("Registration failed: " + error.response?.data?.detail || error.message);
+            alert("Login failed: " + error.response?.data?.detail || error.message);
 
         }
        
