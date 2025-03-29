@@ -58,10 +58,11 @@ const ResetPassword = () => {
         }
         
 
-        const target = 'api/set_new_password/'
+        const target = '/api/set_new_password/'
         try{
         const res = await api.post(target,{'new_password':newPassword})
-        console.log(res.data.new_password)
+        console.log(res.data.message)
+        console.log("Changed password: " + res.status)
         }
         catch (error) {
             console.log(error.status, error.response.data.message)
