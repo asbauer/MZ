@@ -88,7 +88,7 @@ def verify_reset_authenticity(request,uidb64,token) :
     except (TypeError, ValueError, User.DoesNotExist):
         # Handle errors (invalid UID or user not found)
         print("Erorr")
-        return JsonResponse({'error': 'Invalid or expired token'}, status=400)
+        return JsonResponse({'error': 'Invalid or expired reset password token'}, status=400)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
