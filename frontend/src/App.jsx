@@ -89,6 +89,7 @@ function App() {
 
   return (
     <>
+    <title>Mama Zeeka</title>
     <BrowserRouter>
     <div className="container">  {/* Added class container for the main wrapper */}
   
