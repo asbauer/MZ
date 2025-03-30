@@ -50,7 +50,7 @@ function Home () {
 
     return () => window.removeEventListener('resize', handleResize);
 
-  }, [submittedReply]);
+  }, [submittedReply,postDeleted]);
 
  
   const getPosts = (url) => {
@@ -100,24 +100,7 @@ function Home () {
    
     }
 
-/*
-    const handleDelete = async (pk) => {
-      if (window.confirm("Are you sure you want to delete this post?")) {
-          alert("Deleting")
-      
-      const target = `/api/delete/${pk}/`;  // Now using template literals correctly
-      try {
-          const res = await api.delete(target);  // Send DELETE request
-          console.log(res.status);
-          setIsDeleted(true)
-          getPosts(`/api/posts/?page=${page || 1}`)
-            // Log status to confirm the request went through
-      } catch (err) {
-          alert('Error deleting post:', err.response ? err.response.data : err.message);
-      }
-  }
-}
-  */
+
 
 const handleDelete = async (pk) => {
   console.log("PK: " + pk )
