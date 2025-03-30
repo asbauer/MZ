@@ -103,7 +103,9 @@ function Post({post, handleDelete = null, handlePostClick = null , editMode=fals
     const editPost = (e) => {
         e.stopPropagation()
         setIsEditing(true)
-        setShowOptions(!showOptions)
+        if (showOptions) {
+          setShowOptions(false)
+        }
         console.log("Moving")
         if (fromHome) {
         navigate(`/view-post/${post.id}`, {state: {'isEditing':true,'fromHome':true}})
